@@ -1,0 +1,56 @@
+{
+  "name": "@echo-prime/sdk",
+  "version": "3.0.0",
+  "description": "Echo Prime Technologies SDK — 2,600+ intelligence engines, knowledge search, brain memory, doctrine generation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./engines": {
+      "types": "./dist/engines.d.ts",
+      "import": "./dist/engines.mjs",
+      "require": "./dist/engines.js"
+    },
+    "./knowledge": {
+      "types": "./dist/knowledge.d.ts",
+      "import": "./dist/knowledge.mjs",
+      "require": "./dist/knowledge.js"
+    },
+    "./brain": {
+      "types": "./dist/brain.d.ts",
+      "import": "./dist/brain.mjs",
+      "require": "./dist/brain.js"
+    },
+    "./doctrine": {
+      "types": "./dist/doctrine.d.ts",
+      "import": "./dist/doctrine.mjs",
+      "require": "./dist/doctrine.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts --format cjs,esm --dts --clean",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["echo-prime", "ai", "intelligence-engines", "knowledge-base", "sdk", "api"],
+  "author": "Echo Prime Technologies <dev@echo-ept.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ECHO-OMEGA-PRIME/echo-sdk"
+  },
+  "homepage": "https://echo-ept.com/sdk",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0"
+  }
+}
