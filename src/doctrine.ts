@@ -1,11 +1,14 @@
-/** Echo Prime SDK v3.0 — Doctrine Forge module */
-import { EchoHttpClient } from './client.js';
-import type { EchoConfig, DoctrineBlock } from './types.js';
+/** Echo Prime SDK v3.0 — Doctrine Forge module
+ * Generate and search domain-specific doctrine blocks via 24 FREE LLM providers.
+ * Zero external dependencies.
+ */
+import { EchoHttpClient, type EchoClientConfig } from './client.js';
+import type { DoctrineBlock } from './types.js';
 
 export class EchoDoctrine {
   private client: EchoHttpClient;
 
-  constructor(config: EchoConfig) {
+  constructor(config: EchoClientConfig) {
     this.client = new EchoHttpClient(config);
   }
 

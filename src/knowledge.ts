@@ -1,11 +1,14 @@
-/** Echo Prime SDK v3.0 — Knowledge Forge module */
-import { EchoHttpClient } from './client.js';
-import type { EchoConfig, KnowledgeResult } from './types.js';
+/** Echo Prime SDK v3.0 — Knowledge Forge module
+ * Search 5,300+ documents across 140+ categories.
+ * Zero external dependencies.
+ */
+import { EchoHttpClient, type EchoClientConfig } from './client.js';
+import type { KnowledgeResult } from './types.js';
 
 export class EchoKnowledge {
   private client: EchoHttpClient;
 
-  constructor(config: EchoConfig) {
+  constructor(config: EchoClientConfig) {
     this.client = new EchoHttpClient(config);
   }
 

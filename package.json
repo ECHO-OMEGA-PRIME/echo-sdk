@@ -1,7 +1,7 @@
 {
   "name": "@echo-prime/sdk",
   "version": "3.0.0",
-  "description": "Echo Prime Technologies SDK — 2,600+ intelligence engines, knowledge search, brain memory, doctrine generation",
+  "description": "Echo Prime Technologies SDK — 2,600+ intelligence engines, AI chat, voice synthesis, knowledge search, brain memory, vault, bots, scrapers, agents, and 37K+ tools. Zero dependencies.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
@@ -30,15 +30,69 @@
       "types": "./dist/doctrine.d.ts",
       "import": "./dist/doctrine.mjs",
       "require": "./dist/doctrine.js"
+    },
+    "./voice": {
+      "types": "./dist/voice.d.ts",
+      "import": "./dist/voice.mjs",
+      "require": "./dist/voice.js"
+    },
+    "./chat": {
+      "types": "./dist/chat.d.ts",
+      "import": "./dist/chat.mjs",
+      "require": "./dist/chat.js"
+    },
+    "./vault": {
+      "types": "./dist/vault.d.ts",
+      "import": "./dist/vault.mjs",
+      "require": "./dist/vault.js"
+    },
+    "./tools": {
+      "types": "./dist/tools.d.ts",
+      "import": "./dist/tools.mjs",
+      "require": "./dist/tools.js"
+    },
+    "./monitoring": {
+      "types": "./dist/monitoring.d.ts",
+      "import": "./dist/monitoring.mjs",
+      "require": "./dist/monitoring.js"
+    },
+    "./agent": {
+      "types": "./dist/agent.d.ts",
+      "import": "./dist/agent.mjs",
+      "require": "./dist/agent.js"
+    },
+    "./scraper": {
+      "types": "./dist/scraper.d.ts",
+      "import": "./dist/scraper.mjs",
+      "require": "./dist/scraper.js"
+    },
+    "./bot": {
+      "types": "./dist/bot.d.ts",
+      "import": "./dist/bot.mjs",
+      "require": "./dist/bot.js"
+    },
+    "./errors": {
+      "types": "./dist/errors.d.ts",
+      "import": "./dist/errors.mjs",
+      "require": "./dist/errors.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.js"
     }
   },
   "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
-    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts src/voice.ts src/chat.ts src/vault.ts src/tools.ts src/monitoring.ts src/agent.ts src/scraper.ts src/bot.ts src/errors.ts src/client.ts --format cjs,esm --dts --clean",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["echo-prime", "ai", "intelligence-engines", "knowledge-base", "sdk", "api"],
+  "keywords": [
+    "echo-prime", "ai", "intelligence-engines", "knowledge-base", "sdk", "api",
+    "voice", "tts", "stt", "chat", "vault", "bots", "scrapers", "agents",
+    "tools", "monitoring", "autonomous", "zero-dependencies"
+  ],
   "author": "Echo Prime Technologies <dev@echo-ept.com>",
   "license": "MIT",
   "repository": {
@@ -49,6 +103,7 @@
   "engines": {
     "node": ">=18"
   },
+  "sideEffects": false,
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.5.0"

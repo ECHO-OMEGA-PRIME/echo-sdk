@@ -1,18 +1,12 @@
-/** Echo Prime SDK v3.0 — Type definitions */
+/** Echo Prime SDK v3.0 — Type definitions
+ * Shared interfaces used across SDK modules.
+ * Zero external dependencies.
+ */
+import type { EchoClientConfig } from './client.js';
 
-export interface EchoConfig {
-  apiKey: string;
-  gatewayUrl?: string;
-  timeout?: number;
-  retries?: number;
-}
-
-export interface ApiEnvelope<T = unknown> {
-  success: boolean;
-  data: T | null;
-  error: { message: string; code: string } | null;
-  meta: { ts: string; version: string; service: string; latency_ms?: number };
-}
+/** @deprecated Use EchoClientConfig from './client.js' instead */
+export type EchoConfig = EchoClientConfig;
+export type { EchoClientConfig };
 
 export interface EngineQueryResult {
   engine_id: string;
@@ -75,38 +69,9 @@ export interface SearchResult {
   count: number;
 }
 
-export interface ToolInfo {
-  id: string;
-  name: string;
-  category: string;
-  description: string;
-  tier: string;
-  popularity_score: number;
-}
-
-export interface ToolChain {
-  id: string;
-  name: string;
-  description: string;
-  tools: string[];
-  use_case: string;
-}
-
 export interface HealthStatus {
   status: string;
   version: string;
   services: number;
   uptime_ms: number;
-}
-
-export class EchoError extends Error {
-  code: string;
-  status: number;
-
-  constructor(message: string, code: string, status: number) {
-    super(message);
-    this.name = 'EchoError';
-    this.code = code;
-    this.status = status;
-  }
 }

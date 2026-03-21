@@ -1,11 +1,14 @@
-/** Echo Prime SDK v3.0 — Shared Brain module */
-import { EchoHttpClient } from './client.js';
-import type { EchoConfig, BrainMemory } from './types.js';
+/** Echo Prime SDK v3.0 — Shared Brain module
+ * Infinite cross-session memory via semantic search.
+ * Zero external dependencies.
+ */
+import { EchoHttpClient, type EchoClientConfig } from './client.js';
+import type { BrainMemory } from './types.js';
 
 export class EchoBrain {
   private client: EchoHttpClient;
 
-  constructor(config: EchoConfig) {
+  constructor(config: EchoClientConfig) {
     this.client = new EchoHttpClient(config);
   }
 

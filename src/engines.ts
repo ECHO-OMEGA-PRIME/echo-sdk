@@ -1,11 +1,14 @@
-/** Echo Prime SDK v3.0 — Engine module */
-import { EchoHttpClient } from './client.js';
-import type { EchoConfig, EngineQueryResult, EngineInfo } from './types.js';
+/** Echo Prime SDK v3.0 — Engine module
+ * Query 2,600+ intelligence engines across 210+ domains.
+ * Zero external dependencies.
+ */
+import { EchoHttpClient, type EchoClientConfig } from './client.js';
+import type { EngineQueryResult, EngineInfo } from './types.js';
 
 export class EchoEngines {
   private client: EchoHttpClient;
 
-  constructor(config: EchoConfig) {
+  constructor(config: EchoClientConfig) {
     this.client = new EchoHttpClient(config);
   }
 
