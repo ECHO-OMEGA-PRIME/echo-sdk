@@ -27,7 +27,7 @@ export interface EchoClientConfig {
 
 export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  body?: Record<string, unknown>;
+  body?: Record<string, unknown> | object;
   params?: Record<string, string>;
   timeout?: number;
   /** Cache TTL in ms. Set to 0 to skip cache. Default: 60000 for GET, 0 for mutations. */
@@ -176,7 +176,7 @@ export class EchoHttpClient {
   private async executeRequest<T>(
     url: string,
     method: string,
-    body: Record<string, unknown> | undefined,
+    body: Record<string, unknown> | object | undefined,
     timeout: number,
     externalSignal?: AbortSignal,
   ): Promise<T> {

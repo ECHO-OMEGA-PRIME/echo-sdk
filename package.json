@@ -1,7 +1,7 @@
 {
-  "name": "@echo-prime/sdk",
-  "version": "3.0.0",
-  "description": "Echo Prime Technologies SDK — 2,600+ intelligence engines, AI chat, voice synthesis, knowledge search, brain memory, vault, bots, scrapers, agents, and 37K+ tools. Zero dependencies.",
+  "name": "@echo-omega-prime/sdk",
+  "version": "3.1.0",
+  "description": "Echo Prime Technologies SDK — 30 modules: 2,600+ intelligence engines, AI chat, voice synthesis, knowledge search, brain memory, vault, bots, scrapers, agents, 37K+ tools, graph RAG, swarm, dark web intel, crypto trading, landman pipeline, workflows, fleet management, and more. Zero dependencies.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
@@ -71,6 +71,96 @@
       "import": "./dist/bot.mjs",
       "require": "./dist/bot.js"
     },
+    "./mega-gateway": {
+      "types": "./dist/mega-gateway.d.ts",
+      "import": "./dist/mega-gateway.mjs",
+      "require": "./dist/mega-gateway.js"
+    },
+    "./graph-rag": {
+      "types": "./dist/graph-rag.d.ts",
+      "import": "./dist/graph-rag.mjs",
+      "require": "./dist/graph-rag.js"
+    },
+    "./swarm": {
+      "types": "./dist/swarm.d.ts",
+      "import": "./dist/swarm.mjs",
+      "require": "./dist/swarm.js"
+    },
+    "./darkweb": {
+      "types": "./dist/darkweb.d.ts",
+      "import": "./dist/darkweb.mjs",
+      "require": "./dist/darkweb.js"
+    },
+    "./crypto": {
+      "types": "./dist/crypto.d.ts",
+      "import": "./dist/crypto.mjs",
+      "require": "./dist/crypto.js"
+    },
+    "./news": {
+      "types": "./dist/news.d.ts",
+      "import": "./dist/news.mjs",
+      "require": "./dist/news.js"
+    },
+    "./sec-edgar": {
+      "types": "./dist/sec-edgar.d.ts",
+      "import": "./dist/sec-edgar.mjs",
+      "require": "./dist/sec-edgar.js"
+    },
+    "./reddit": {
+      "types": "./dist/reddit.d.ts",
+      "import": "./dist/reddit.mjs",
+      "require": "./dist/reddit.js"
+    },
+    "./price-alerts": {
+      "types": "./dist/price-alerts.d.ts",
+      "import": "./dist/price-alerts.mjs",
+      "require": "./dist/price-alerts.js"
+    },
+    "./landman": {
+      "types": "./dist/landman.d.ts",
+      "import": "./dist/landman.mjs",
+      "require": "./dist/landman.js"
+    },
+    "./model-host": {
+      "types": "./dist/model-host.d.ts",
+      "import": "./dist/model-host.mjs",
+      "require": "./dist/model-host.js"
+    },
+    "./harvester": {
+      "types": "./dist/harvester.d.ts",
+      "import": "./dist/harvester.mjs",
+      "require": "./dist/harvester.js"
+    },
+    "./scanner": {
+      "types": "./dist/scanner.d.ts",
+      "import": "./dist/scanner.mjs",
+      "require": "./dist/scanner.js"
+    },
+    "./workflows": {
+      "types": "./dist/workflows.d.ts",
+      "import": "./dist/workflows.mjs",
+      "require": "./dist/workflows.js"
+    },
+    "./notifications": {
+      "types": "./dist/notifications.d.ts",
+      "import": "./dist/notifications.mjs",
+      "require": "./dist/notifications.js"
+    },
+    "./fleet": {
+      "types": "./dist/fleet.d.ts",
+      "import": "./dist/fleet.mjs",
+      "require": "./dist/fleet.js"
+    },
+    "./memory-prime": {
+      "types": "./dist/memory-prime.d.ts",
+      "import": "./dist/memory-prime.mjs",
+      "require": "./dist/memory-prime.js"
+    },
+    "./autonomous": {
+      "types": "./dist/autonomous.d.ts",
+      "import": "./dist/autonomous.mjs",
+      "require": "./dist/autonomous.js"
+    },
     "./errors": {
       "types": "./dist/errors.d.ts",
       "import": "./dist/errors.mjs",
@@ -84,14 +174,15 @@
   },
   "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
-    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts src/voice.ts src/chat.ts src/vault.ts src/tools.ts src/monitoring.ts src/agent.ts src/scraper.ts src/bot.ts src/errors.ts src/client.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts src/voice.ts src/chat.ts src/vault.ts src/tools.ts src/monitoring.ts src/agent.ts src/scraper.ts src/bot.ts src/mega-gateway.ts src/graph-rag.ts src/swarm.ts src/darkweb.ts src/crypto.ts src/news.ts src/sec-edgar.ts src/reddit.ts src/price-alerts.ts src/landman.ts src/model-host.ts src/harvester.ts src/scanner.ts src/workflows.ts src/notifications.ts src/fleet.ts src/memory-prime.ts src/autonomous.ts src/errors.ts src/client.ts --format cjs,esm --dts --clean",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
     "echo-prime", "ai", "intelligence-engines", "knowledge-base", "sdk", "api",
     "voice", "tts", "stt", "chat", "vault", "bots", "scrapers", "agents",
-    "tools", "monitoring", "autonomous", "zero-dependencies"
+    "tools", "monitoring", "autonomous", "zero-dependencies", "graph-rag",
+    "swarm", "darkweb", "crypto", "landman", "workflows", "fleet"
   ],
   "author": "Echo Prime Technologies <dev@echo-ept.com>",
   "license": "MIT",
@@ -102,6 +193,10 @@
   "homepage": "https://echo-ept.com/sdk",
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "sideEffects": false,
   "devDependencies": {
