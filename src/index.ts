@@ -1,5 +1,5 @@
-/** Echo Prime SDK v3.1 — Main entry point
- * 30 modules, zero external dependencies, tree-shakeable.
+/** Echo Prime SDK v3.3 — Main entry point
+ * 35 modules, zero external dependencies, tree-shakeable.
  * https://echo-ept.com/sdk
  */
 import { EchoHttpClient, type EchoClientConfig } from './client.js';
@@ -33,9 +33,19 @@ import { EchoNotifications } from './notifications.js';
 import { EchoFleet } from './fleet.js';
 import { EchoMemoryPrime } from './memory-prime.js';
 import { EchoAutonomous } from './autonomous.js';
+import { EchoSdkCatalog } from './sdk-catalog.js';
+import { ForgeClient } from './forge.js';
+import { LLMClient } from './llm.js';
+import { WebhookClient } from './webhooks.js';
+import { AGIClient } from './agi.js';
+import { ComposeClient } from './compose.js';
+import { DataClient } from './data.js';
+import { OfflineCache, type OfflineCacheConfig } from './offline-cache.js';
+import { RequestBatcher, type BatchOptions } from './batch.js';
+import { Telemetry } from './telemetry.js';
 import type { HealthStatus, SearchResult } from './types.js';
 
-/** Unified Echo Prime SDK client — all 30 modules in one object */
+/** Unified Echo Prime SDK client — all 35 modules in one object */
 export class EchoPrime {
   readonly engines: EchoEngines;
   readonly knowledge: EchoKnowledge;
@@ -67,6 +77,16 @@ export class EchoPrime {
   readonly fleet: EchoFleet;
   readonly memoryPrime: EchoMemoryPrime;
   readonly autonomous: EchoAutonomous;
+  readonly sdkCatalog: EchoSdkCatalog;
+  readonly forge: ForgeClient;
+  readonly llm: LLMClient;
+  readonly webhooks: WebhookClient;
+  readonly agi: AGIClient;
+  readonly compose: ComposeClient;
+  readonly data: DataClient;
+  readonly offlineCache: OfflineCache;
+  readonly batcher: RequestBatcher;
+  readonly telemetry: Telemetry;
 
   private client: EchoHttpClient;
 
@@ -102,6 +122,17 @@ export class EchoPrime {
     this.fleet = new EchoFleet(config);
     this.memoryPrime = new EchoMemoryPrime(config);
     this.autonomous = new EchoAutonomous(config);
+    this.sdkCatalog = new EchoSdkCatalog(config);
+    this.forge = new ForgeClient({ apiKey: config.apiKey, baseUrl: config.gatewayUrl });
+    this.llm = new LLMClient({ apiKey: config.apiKey, baseUrl: config.gatewayUrl });
+    this.webhooks = new WebhookClient({ apiKey: config.apiKey, baseUrl: config.gatewayUrl });
+    this.agi = new AGIClient({ apiKey: config.apiKey, baseUrl: config.gatewayUrl });
+    this.compose = new ComposeClient({ apiKey: config.apiKey, baseUrl: config.gatewayUrl });
+    this.data = new DataClient(config);
+    this.offlineCache = new OfflineCache();
+    this.offlineCache.attachClient(this.client);
+    this.batcher = new RequestBatcher(config);
+    this.telemetry = new Telemetry();
   }
 
   /** Unified search across engines, knowledge, and brain */
@@ -164,6 +195,27 @@ export { EchoNotifications } from './notifications.js';
 export { EchoFleet } from './fleet.js';
 export { EchoMemoryPrime } from './memory-prime.js';
 export { EchoAutonomous } from './autonomous.js';
+export { EchoSdkCatalog } from './sdk-catalog.js';
+export { ForgeClient } from './forge.js';
+export type { ForgeConfig, BuildResult, EvolutionState, ForgeStatus, FullStackResult } from './forge.js';
+export { LLMClient } from './llm.js';
+export type { LLMConfig, CompletionRequest, CompletionResponse, ModelInfo } from './llm.js';
+export { WebhookClient } from './webhooks.js';
+export type { WebhookConfig, Webhook } from './webhooks.js';
+export { AGIClient } from './agi.js';
+export type { AGIConfig, AGIStatus, FeedbackRequest, LearningRate, Suggestion } from './agi.js';
+export { ComposeClient } from './compose.js';
+export type { ComposeConfig, CompoundEngine } from './compose.js';
+export { DataClient } from './data.js';
+export type { DatabaseInfo, ColumnSchema, TableInfo, TablesResponse, QueryResult, QueryMeta, TableStats, DatabaseStats } from './data.js';
+
+// ── Scale & Offline ─────────────────────────────────────────────────
+export { OfflineCache } from './offline-cache.js';
+export type { OfflineCacheConfig, OfflineCacheStats } from './offline-cache.js';
+export { RequestBatcher } from './batch.js';
+export type { BatchOptions, BatchRequest } from './batch.js';
+export { Telemetry } from './telemetry.js';
+export type { TelemetryRecord, TelemetrySummary } from './telemetry.js';
 
 // ── Infrastructure ──────────────────────────────────────────────────
 export { EchoHttpClient } from './client.js';
