@@ -1,6 +1,6 @@
 # Echo Prime SDK
 
-The official TypeScript SDK for **Echo Prime Technologies** — 30 modules covering 2,600+ intelligence engines, AI chat with 14 personalities, voice synthesis, knowledge search, brain memory, credential vault, autonomous bots, scrapers, agents, 37,000+ tools, dark web intel, crypto trading, graph RAG, swarm coordination, fleet management, and more.
+The official TypeScript SDK for **Echo Prime Technologies** — 30 modules covering 5,500+ intelligence engines, AI chat with 14 personalities, voice synthesis, knowledge search, brain memory, credential vault, autonomous bots, scrapers, agents, 37,400+ tools, dark web intel, crypto trading, graph RAG, swarm coordination, fleet management, and more.
 
 **Zero dependencies. Tree-shakeable. Works everywhere.**
 
@@ -15,7 +15,7 @@ import EchoPrime from '@echo-omega-prime/sdk';
 
 const echo = new EchoPrime({ apiKey: 'your-api-key' });
 
-// Query 2,600+ intelligence engines
+// Query 5,500+ intelligence engines
 const results = await echo.engines.query('MACRS depreciation rules for oil wells?', 'tax');
 
 // AI chat with 14 personalities
@@ -23,7 +23,7 @@ const reply = await echo.chat.send('Analyze this contract for risk factors', {
   personality: 'nexus',
 });
 
-// Search the Knowledge Forge (5,300+ documents)
+// Search the Knowledge Forge (26,000+ documents)
 const docs = await echo.knowledge.search('Cloudflare Workers best practices');
 
 // Dark web threat monitoring
@@ -68,9 +68,9 @@ import { EchoDarkweb } from '@echo-omega-prime/sdk/darkweb';
 
 ---
 
-### Engines — 2,600+ Intelligence Engines
+### Engines — 5,500+ Intelligence Engines
 
-Query domain-specific AI reasoning systems across 210+ domains: tax, legal, oilfield, medical, finance, cybersecurity, and more. Not wrappers — embedded domain expertise with doctrine-backed responses.
+Query domain-specific AI reasoning systems across 880+ domains: tax, legal, oilfield, medical, finance, cybersecurity, and more. Not wrappers — embedded domain expertise with doctrine-backed responses.
 
 ```typescript
 import { EchoEngines } from '@echo-omega-prime/sdk/engines';
@@ -86,9 +86,9 @@ const taxEngines = await engines.list('tax');
 const matches = await engines.search('depreciation');
 ```
 
-### Knowledge — 5,300+ Documents
+### Knowledge — 26,000+ Documents
 
-Search and ingest documents across 140+ categories.
+Search and ingest documents across 576+ categories.
 
 ```typescript
 import { EchoKnowledge } from '@echo-omega-prime/sdk/knowledge';
@@ -693,8 +693,8 @@ const results = await echo.search('MACRS depreciation', ['engines', 'knowledge']
 
 | Module | Import Path | Description |
 |--------|-------------|-------------|
-| Engines | `@echo-omega-prime/sdk/engines` | 2,600+ AI reasoning engines, 210+ domains |
-| Knowledge | `@echo-omega-prime/sdk/knowledge` | 5,300+ documents, 140+ categories |
+| Engines | `@echo-omega-prime/sdk/engines` | 5,500+ AI reasoning engines, 880+ domains |
+| Knowledge | `@echo-omega-prime/sdk/knowledge` | 26,000+ documents, 576+ categories |
 | Brain | `@echo-omega-prime/sdk/brain` | Infinite cross-session semantic memory |
 | Doctrine | `@echo-omega-prime/sdk/doctrine` | Domain expertise generation, 24 LLM providers |
 | Voice | `@echo-omega-prime/sdk/voice` | TTS, STT, emotion, voice cloning |
@@ -705,7 +705,7 @@ const results = await echo.search('MACRS depreciation', ['engines', 'knowledge']
 | Agent | `@echo-omega-prime/sdk/agent` | Autonomous AI agents |
 | Scraper | `@echo-omega-prime/sdk/scraper` | Web data extraction |
 | Bot | `@echo-omega-prime/sdk/bot` | Social media bots, 9 platforms |
-| MEGA Gateway | `@echo-omega-prime/sdk/mega-gateway` | 37K+ tools, 1,873 servers |
+| MEGA Gateway | `@echo-omega-prime/sdk/mega-gateway` | 37,400+ tools, 1,873 servers |
 | Graph RAG | `@echo-omega-prime/sdk/graph-rag` | 312K nodes, 3.3M edges knowledge graph |
 | Swarm | `@echo-omega-prime/sdk/swarm` | Multi-agent coordination, MoltBook |
 | Dark Web | `@echo-omega-prime/sdk/darkweb` | Threat monitoring, breach detection |
@@ -716,7 +716,7 @@ const results = await echo.search('MACRS depreciation', ['engines', 'knowledge']
 | Price Alerts | `@echo-omega-prime/sdk/price-alerts` | Asset price monitoring |
 | Landman | `@echo-omega-prime/sdk/landman` | Title & deed intelligence, 80 TX counties |
 | Model Host | `@echo-omega-prime/sdk/model-host` | Custom AI inference, 10 LoRA adapters |
-| Harvester | `@echo-omega-prime/sdk/harvester` | Data collection, 56+ sources |
+| Harvester | `@echo-omega-prime/sdk/harvester` | Data collection, 80+ sources |
 | Scanner | `@echo-omega-prime/sdk/scanner` | County document scanning & OCR |
 | Workflows | `@echo-omega-prime/sdk/workflows` | Automation pipelines, cron scheduling |
 | Notifications | `@echo-omega-prime/sdk/notifications` | Multi-channel alerts |
