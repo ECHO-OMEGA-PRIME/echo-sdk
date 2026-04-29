@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: Echo SDK Action Gateway
+  version: 4.0.0
+servers:
+  - url: https://YOUR_CONNECTOR_DOMAIN
+components:
+  securitySchemes:
+    connectorToken:
+      type: apiKey
+      in: header
+      name: X-Connector-Token
+  schemas:
+    SdkCallRequest:
+      type: object
+      required: [function, input]
+      properties:
+        function: { type: string }
+        input: { type: object, additionalProperties: true }
+security:
+  - connectorToken: []
+paths:
+  /health: { get: { operationId: health, responses: { '200': { description: ok } } } }
+  /sdk/health: { post: { operationId: sdkHealth, responses: { '200': { description: ok } } } }
+  /chat: { post: { operationId: chatWithEcho, responses: { '200': { description: ok } } } }
+  /knowledge/search: { post: { operationId: searchKnowledge, responses: { '200': { description: ok } } } }
+  /sdk/functions/search: { post: { operationId: sdkFunctionsSearch, responses: { '200': { description: ok } } } }
+  /sdk/functions/call:
+    post:
+      operationId: sdkFunctionsCall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SdkCallRequest'
+      responses: { '200': { description: ok } }
+  /sdk/search: { post: { operationId: sdkSearch, responses: { '200': { description: ok } } } }
+  /sdk/call:
+    post:
+      operationId: sdkCall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SdkCallRequest'
+      responses: { '200': { description: ok } }
+  /sdk/workflow: { post: { operationId: sdkWorkflow, responses: { '200': { description: ok } } } }
+  /engines/search: { post: { operationId: enginesSearch, responses: { '200': { description: ok } } } }
+  /engines/query: { post: { operationId: enginesQuery, responses: { '200': { description: ok } } } }
+  /memory/search: { post: { operationId: memorySearch, responses: { '200': { description: ok } } } }
+  /scanner/search: { post: { operationId: scannerSearch, responses: { '200': { description: ok } } } }
+  /scanner/recommend-build: { post: { operationId: scannerRecommendBuild, responses: { '200': { description: ok } } } }
+  /raistlin/plan: { post: { operationId: raistlinPlan, responses: { '200': { description: ok } } } }
+  /raistlin/execute: { post: { operationId: raistlinExecute, responses: { '200': { description: ok } } } }
+  /forge/status: { post: { operationId: forgeStatus, responses: { '200': { description: ok } } } }
+  /forge/smoke: { post: { operationId: forgeSmokeDeprecated, responses: { '200': { description: deprecated } } } }
+  /queue/create: { post: { operationId: queueCreate, responses: { '200': { description: ok } } } }
+  /queue/status: { post: { operationId: queueStatus, responses: { '200': { description: ok } } } }
+  /drive-scanner/search: { post: { operationId: driveScannerSearch, responses: { '200': { description: ok } } } }
+  /drive-scanner/scan: { post: { operationId: driveScannerScan, responses: { '200': { description: ok } } } }
+  /drive-scanner/status: { post: { operationId: driveScannerStatus, responses: { '200': { description: ok } } } }

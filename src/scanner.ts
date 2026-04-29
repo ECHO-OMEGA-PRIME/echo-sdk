@@ -50,6 +50,18 @@ export interface ScannerStats {
   pages_scraped_total: number;
 }
 
+export interface BuildRecommendation {
+  plan_id: string;
+  summary: string;
+  suggested_files: Array<{
+    path: string;
+    reason: string;
+    action: 'create' | 'update' | 'reuse';
+  }>;
+  steps: string[];
+  risk_level: 'low' | 'medium' | 'high';
+}
+
 export class EchoScanner {
   private client: EchoHttpClient;
 
@@ -108,5 +120,17 @@ export class EchoScanner {
   /** Get scanner stats */
   async stats(): Promise<ScannerStats> {
     return this.client.request<ScannerStats>('/scanner/stats');
+  }
+
+  /** Recommend build plan from discovered/existing files */
+  async recommendBuild(opts: { goal: string; files?: string[]; context?: string }): Promise<BuildRecommendation> {
+    return this.client.request<BuildRecommendation>('/scanner/recommend-build', {
+      method: 'POST',
+      body: {
+        goal: opts.goal,
+        files: opts.files ?? [],
+        context: opts.context,
+      },
+    });
   }
 }

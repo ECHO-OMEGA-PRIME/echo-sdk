@@ -36,6 +36,17 @@ const portfolio = await echo.crypto.portfolio();
 const status = await echo.health();
 ```
 
+
+## Custom GPT Connector Example
+
+Want to connect a **Custom GPT** to Echo SDK? Use the minimal connector example in:
+
+- `examples/custom-gpt-connector/README.md`
+- `examples/custom-gpt-connector/openapi.yaml`
+- `examples/custom-gpt-connector/server.mjs`
+
+This gives you a ready Actions-compatible API (`/chat`, `/knowledge/search`) that proxies to Echo SDK securely from your server.
+
 ## Installation
 
 ```bash
