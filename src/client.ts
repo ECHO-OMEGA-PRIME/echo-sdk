@@ -198,9 +198,12 @@ export class EchoHttpClient {
         headers: {
           'X-Echo-API-Key': this.apiKey,
           'Content-Type': 'application/json',
-          'X-SDK-Version': '3.0.0',
+          'X-SDK-Version': '3.3.0',
+          'Connection': 'keep-alive',
+          'Keep-Alive': 'timeout=30, max=100',
         },
         signal: controller.signal,
+        keepalive: true,
       };
       if (body && method !== 'GET') {
         fetchOpts.body = JSON.stringify(body);

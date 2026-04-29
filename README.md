@@ -1,10 +1,15 @@
-# Echo Prime SDK
+# Echo Prime SDK (TypeScript)
 
-The official TypeScript SDK for **Echo Prime Technologies** — 30 modules covering 5,500+ intelligence engines, AI chat with 14 personalities, voice synthesis, knowledge search, brain memory, credential vault, autonomous bots, scrapers, agents, 37,400+ tools, dark web intel, crypto trading, graph RAG, swarm coordination, fleet management, and more.
+The official TypeScript/JavaScript SDK for [Echo Prime Technologies](https://echo-ept.com). Access 2,600+ intelligence engines, 37,475+ MCP tools, 5,300+ knowledge documents, 14 AI personalities, and the full Echo platform through a single unified client.
 
-**Zero dependencies. Tree-shakeable. Works everywhere.**
+**SDK v3.2** | Zero external dependencies | Tree-shakeable | Node.js 18+ / Bun / Deno / Cloudflare Workers
 
-```
+[![npm](https://img.shields.io/npm/v/@echo-omega-prime/sdk)](https://www.npmjs.com/package/@echo-omega-prime/sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+## Installation
+
+```bash
 npm install @echo-omega-prime/sdk
 ```
 
@@ -13,29 +18,12 @@ npm install @echo-omega-prime/sdk
 ```typescript
 import EchoPrime from '@echo-omega-prime/sdk';
 
-const echo = new EchoPrime({ apiKey: 'your-api-key' });
-
-// Query 5,500+ intelligence engines
-const results = await echo.engines.query('MACRS depreciation rules for oil wells?', 'tax');
-
-// AI chat with 14 personalities
-const reply = await echo.chat.send('Analyze this contract for risk factors', {
-  personality: 'nexus',
-});
-
-// Search the Knowledge Forge (26,000+ documents)
-const docs = await echo.knowledge.search('Cloudflare Workers best practices');
-
-// Dark web threat monitoring
-const threats = await echo.darkweb.scan('echo-ept.com');
-
-// Crypto trading
-const portfolio = await echo.crypto.portfolio();
-
-// Health check
-const status = await echo.health();
+const echo = new EchoPrime({ apiKey: 'your-key' });
+const result = await echo.engines.query('What is fracking?', 'oilfield');
+console.log(result.response);
 ```
 
+That's it. Three lines to intelligence.
 
 ## Custom GPT Connector Example
 
@@ -47,575 +35,16 @@ Want to connect a **Custom GPT** to Echo SDK? Use the minimal connector example 
 
 This gives you a ready Actions-compatible API (`/chat`, `/knowledge/search`) that proxies to Echo SDK securely from your server.
 
-## Installation
 
-```bash
-# GitHub Packages (available now)
-npm install @echo-omega-prime/sdk --registry=https://npm.pkg.github.com
-
-# npm (coming soon)
-npm install @echo-prime/sdk
-```
-
-> Configure GitHub Packages auth in your `.npmrc`:
-> ```
-> @echo-omega-prime:registry=https://npm.pkg.github.com
-> //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
-> ```
-
-## All 30 Modules
-
-Import the full SDK or only the modules you need:
-
-```typescript
-// Full SDK (tree-shakes unused modules)
-import EchoPrime from '@echo-omega-prime/sdk';
-
-// Individual modules (smallest bundle)
-import { EchoEngines } from '@echo-omega-prime/sdk/engines';
-import { EchoVoice } from '@echo-omega-prime/sdk/voice';
-import { EchoDarkweb } from '@echo-omega-prime/sdk/darkweb';
-```
-
----
-
-### Engines — 5,500+ Intelligence Engines
-
-Query domain-specific AI reasoning systems across 880+ domains: tax, legal, oilfield, medical, finance, cybersecurity, and more. Not wrappers — embedded domain expertise with doctrine-backed responses.
-
-```typescript
-import { EchoEngines } from '@echo-omega-prime/sdk/engines';
-
-const engines = new EchoEngines({ apiKey: 'your-key' });
-
-const result = await engines.query('Safe harbor for underpayment penalties?', 'tax');
-const batch = await engines.queryBatch([
-  { query: 'IRC Section 1031 exchange rules', domain: 'tax' },
-  { query: 'Force majeure in oil leases', domain: 'legal' },
-]);
-const taxEngines = await engines.list('tax');
-const matches = await engines.search('depreciation');
-```
-
-### Knowledge — 26,000+ Documents
-
-Search and ingest documents across 576+ categories.
-
-```typescript
-import { EchoKnowledge } from '@echo-omega-prime/sdk/knowledge';
-
-const knowledge = new EchoKnowledge({ apiKey: 'your-key' });
-
-const results = await knowledge.search('Cloudflare D1 migration patterns');
-const categories = await knowledge.categories();
-await knowledge.ingest('My Document', 'Document content...', 'engineering');
-```
-
-### Brain — Infinite Memory
-
-Cross-session semantic memory. Store decisions, recall context, search across all memories.
-
-```typescript
-import { EchoBrain } from '@echo-omega-prime/sdk/brain';
-
-const brain = new EchoBrain({ apiKey: 'your-key' });
-
-await brain.ingest('Decided to use Hono router for all Workers', 8, ['architecture']);
-const memories = await brain.search('router decision');
-await brain.store('project-config', { framework: 'hono', runtime: 'workers' });
-const config = await brain.recall('project-config');
-```
-
-### Doctrine — Domain Expertise Generation
-
-Generate doctrine blocks using 24 FREE LLM providers. Real domain expertise, not generic text.
-
-```typescript
-import { EchoDoctrine } from '@echo-omega-prime/sdk/doctrine';
-
-const doctrine = new EchoDoctrine({ apiKey: 'your-key' });
-
-const result = await doctrine.generate('tax', 'MACRS depreciation');
-const providers = await doctrine.providers();
-const taxDoctrines = await doctrine.search('depreciation', 'tax');
-```
-
-### Voice — TTS, STT, Emotion, Voice Cloning
-
-6 voice personalities, 19 emotions, voice cloning, speech-to-text.
-
-```typescript
-import { EchoVoice } from '@echo-omega-prime/sdk/voice';
-
-const voice = new EchoVoice({ apiKey: 'your-key' });
-
-const audio = await voice.synthesize('Hello from Echo Prime', {
-  voice: 'echo', emotion: 'confident', format: 'mp3',
-});
-const transcript = await voice.transcribe(audioBuffer, { language: 'en' });
-const emotions = await voice.analyzeEmotion('I am thrilled about this result!');
-const cloned = await voice.cloneVoice('my-voice', audioSamples);
-```
-
-### Chat — 14 AI Personalities
-
-Conversational AI with session management and personality switching.
-
-```typescript
-import { EchoChat } from '@echo-omega-prime/sdk/chat';
-
-const chat = new EchoChat({ apiKey: 'your-key' });
-
-const reply = await chat.send('Explain quantum computing');
-const analysis = await chat.send('Analyze this network traffic', {
-  personality: 'prometheus',
-});
-
-const session = chat.createSession({ personality: 'nexus' });
-const r1 = await chat.sendInSession(session, 'Write a binary search in Rust');
-const r2 = await chat.sendInSession(session, 'Now add error handling');
-```
-
-**Personalities:** `echo_prime`, `bree`, `raven`, `sage`, `thinker`, `nexus`, `gs343`, `phoenix`, `prometheus`, `belle`, `tech_expert`, `warmaster`, `r2`, `third_person`
-
-### Vault — Credential Management
-
-Secure credential storage, search, health scoring, and breach detection.
-
-```typescript
-import { EchoVault } from '@echo-omega-prime/sdk/vault';
-
-const vault = new EchoVault({ apiKey: 'your-key' });
-
-await vault.store('aws-prod', 'admin', 's3cr3t', { category: 'cloud' });
-const cred = await vault.get('aws-prod');
-const results = await vault.search('aws');
-const health = await vault.health();
-```
-
-### Tools — 37,000+ MCP Tools
-
-Search and execute tools from the MEGA Gateway across 1,873 servers.
-
-```typescript
-import { EchoTools } from '@echo-omega-prime/sdk/tools';
-
-const tools = new EchoTools({ apiKey: 'your-key' });
-
-const matches = await tools.search('pdf');
-const result = await tools.execute('tool-id', { input: 'data' });
-const categories = await tools.categories();
-const chains = await tools.chains(); // Multi-tool workflows
-```
-
-### Monitoring — Request Telemetry
-
-Local request metrics — no API calls, runs entirely in-process.
-
-```typescript
-import { EchoMonitor } from '@echo-omega-prime/sdk/monitoring';
-
-const monitor = new EchoMonitor();
-
-monitor.record({ endpoint: '/engines/query', method: 'POST', status: 200, latency_ms: 142, cached: false });
-const summary = monitor.summarize();
-// { total_requests, error_rate, avg_latency, p95_latency, p99_latency, ... }
-```
-
-### Agent — Autonomous AI Agents
-
-Create and manage long-running autonomous agents with scheduling.
-
-```typescript
-import { EchoAgent } from '@echo-omega-prime/sdk/agent';
-
-const agent = new EchoAgent({ apiKey: 'your-key' });
-
-const config = await agent.create({
-  name: 'research-agent',
-  description: 'Monitors competitor pricing',
-  instructions: 'Check pricing pages daily and report changes',
-  schedule: '0 9 * * *',
-});
-const run = await agent.run(config.id, { target: 'competitor.com' });
-const status = await agent.status(run.id);
-```
-
-### Scraper — Web Data Extraction
-
-Configure and run scrapers with rate limiting and proxy rotation.
-
-```typescript
-import { EchoScraper } from '@echo-omega-prime/sdk/scraper';
-
-const scraper = new EchoScraper({ apiKey: 'your-key' });
-
-const config = await scraper.create({
-  name: 'court-records',
-  target_url: 'https://records.county.gov',
-  selectors: { title: 'h2.case-title', date: '.filing-date' },
-  schedule: '0 */6 * * *',
-  rate_limit: { requests_per_second: 2 },
-});
-const job = await scraper.run(config.id);
-const records = await scraper.records(config.id, 100);
-```
-
-### Bot — Social Media Automation
-
-Deploy bots across 9 platforms with 14 AI personalities.
-
-```typescript
-import { EchoBot } from '@echo-omega-prime/sdk/bot';
-
-const bot = new EchoBot({ apiKey: 'your-key' });
-
-const config = await bot.create({
-  name: 'twitter-presence',
-  platform: 'twitter',
-  personality: 'echo_prime',
-  schedule: { posts_per_day: 4 },
-  content_categories: ['ai_tech', 'industry', 'builds'],
-});
-await bot.post(config.id, { content: 'Just shipped 50 new engines.' });
-const stats = await bot.stats(config.id);
-```
-
-**Platforms:** `discord`, `twitter`, `telegram`, `linkedin`, `whatsapp`, `messenger`, `slack`, `reddit`, `instagram`
-
-### MEGA Gateway — 37,000+ Tools Across 1,873 Servers
-
-Direct access to the MEGA Gateway tool registry.
-
-```typescript
-import { EchoMegaGateway } from '@echo-omega-prime/sdk/mega-gateway';
-
-const gateway = new EchoMegaGateway({ apiKey: 'your-key' });
-
-const tools = await gateway.search('browser automation');
-const result = await gateway.execute('server-name', 'tool-name', { param: 'value' });
-const servers = await gateway.servers();
-const categories = await gateway.categories();
-const stats = await gateway.stats();
-```
-
-**Categories:** `AI_ML`, `API`, `AUTOMATION`, `CLOUD`, `COMMUNICATION`, `DATA`, `DEVTOOLS`, `FINANCE`, `MEDIA`, `MONITORING`, `NETWORK`, `SECURITY`
-
-### Graph RAG — Knowledge Graph
-
-312K+ nodes, 3.3M+ edges across 93 domains. Traverse relationships, find paths, semantic graph search.
-
-```typescript
-import { EchoGraphRAG } from '@echo-omega-prime/sdk/graph-rag';
-
-const graph = new EchoGraphRAG({ apiKey: 'your-key' });
-
-const results = await graph.search('MACRS depreciation', { domain: 'tax', depth: 3 });
-const paths = await graph.findPaths('entity-a', 'entity-b');
-const neighbors = await graph.neighbors('node-id', { maxDepth: 2 });
-const stats = await graph.stats();
-```
-
-### Swarm — Multi-Agent Coordination
-
-MoltBook social feed, swarm task assignment, agent-to-agent messaging, broadcast system.
-
-```typescript
-import { EchoSwarm } from '@echo-omega-prime/sdk/swarm';
-
-const swarm = new EchoSwarm({ apiKey: 'your-key' });
-
-await swarm.post({ content: 'Engine build complete', mood: 'celebrating', tags: ['build'] });
-const feed = await swarm.feed({ limit: 20 });
-const agents = await swarm.agents();
-const task = await swarm.assignTask('worker-1', { description: 'Build tax engine', priority: 8 });
-await swarm.broadcast('Deploy freeze in effect', 'high');
-const stats = await swarm.stats();
-```
-
-### Dark Web Intelligence
-
-Monitor the dark web for threats, breaches, brand mentions, and credential exposure.
-
-```typescript
-import { EchoDarkweb } from '@echo-omega-prime/sdk/darkweb';
-
-const darkweb = new EchoDarkweb({ apiKey: 'your-key' });
-
-const threats = await darkweb.scan('mycompany.com');
-const breaches = await darkweb.checkBreach('user@company.com');
-const alerts = await darkweb.alerts();
-await darkweb.createAlert({
-  name: 'Brand Monitor',
-  keywords: ['mycompany', 'my-product'],
-  severity_threshold: 'medium',
-});
-const intel = await darkweb.intel({ severity: 'critical', limit: 50 });
-const stats = await darkweb.stats();
-```
-
-### Crypto — Trading & Portfolio Management
-
-Automated trading strategies, portfolio tracking, order management.
-
-```typescript
-import { EchoCrypto } from '@echo-omega-prime/sdk/crypto';
-
-const crypto = new EchoCrypto({ apiKey: 'your-key' });
-
-const portfolio = await crypto.portfolio();
-const order = await crypto.placeOrder({
-  pair: 'BTC-USDC', side: 'buy', amount: 0.1, strategy: 'grid',
-});
-const strategies = await crypto.strategies();
-await crypto.configureStrategy('grid', { lower: 60000, upper: 70000, grids: 10 });
-const stats = await crypto.stats();
-```
-
-### News — Real-Time News Intelligence
-
-News aggregation, sentiment analysis, topic tracking, and alerts.
-
-```typescript
-import { EchoNews } from '@echo-omega-prime/sdk/news';
-
-const news = new EchoNews({ apiKey: 'your-key' });
-
-const articles = await news.latest({ topic: 'artificial intelligence', limit: 20 });
-const sentiment = await news.analyzeSentiment('oil prices');
-const topics = await news.topics();
-await news.createAlert({ topic: 'crypto regulation', keywords: ['SEC', 'bitcoin'] });
-const stats = await news.stats();
-```
-
-### SEC EDGAR — Financial Filings
-
-Monitor SEC filings, track companies, get alerts on new filings.
-
-```typescript
-import { EchoSECEdgar } from '@echo-omega-prime/sdk/sec-edgar';
-
-const sec = new EchoSECEdgar({ apiKey: 'your-key' });
-
-const filings = await sec.filings('AAPL', { type: '10-K' });
-await sec.watch('NVDA', { filing_types: ['10-K', '10-Q', '8-K'] });
-const watchlist = await sec.watchlist();
-const alerts = await sec.alerts();
-const stats = await sec.stats();
-```
-
-### Reddit — Social Intelligence
-
-Monitor subreddits, track keywords, sentiment analysis across Reddit.
-
-```typescript
-import { EchoReddit } from '@echo-omega-prime/sdk/reddit';
-
-const reddit = new EchoReddit({ apiKey: 'your-key' });
-
-const posts = await reddit.search('artificial intelligence', { subreddit: 'machinelearning' });
-await reddit.watch('r/startup', { keywords: ['AI', 'funding'] });
-const alerts = await reddit.alerts();
-const trending = await reddit.trending();
-const stats = await reddit.stats();
-```
-
-### Price Alerts — Asset Monitoring
-
-Real-time price monitoring with configurable alerts for any asset.
-
-```typescript
-import { EchoPriceAlerts } from '@echo-omega-prime/sdk/price-alerts';
-
-const prices = new EchoPriceAlerts({ apiKey: 'your-key' });
-
-await prices.create({ asset: 'BTC', condition: 'above', threshold: 100000, asset_type: 'crypto' });
-const active = await prices.list();
-const snapshot = await prices.snapshot('BTC');
-const history = await prices.history('alert-id');
-const stats = await prices.stats();
-```
-
-### Landman — Title & Deed Intelligence
-
-259,000+ deed records across 80 Texas counties. Chain of title, runsheets, title investigation.
-
-```typescript
-import { EchoLandman } from '@echo-omega-prime/sdk/landman';
-
-const landman = new EchoLandman({ apiKey: 'your-key' });
-
-const investigation = await landman.investigate({
-  county: 'Reeves', state: 'TX',
-  legal_description: 'Section 270, Block 8, H&GN Survey',
-});
-const chain = await landman.chainOfTitle(investigation.id);
-const runsheet = await landman.runsheet(investigation.id);
-const deeds = await landman.searchDeeds({ county: 'Reeves', grantor: 'Smith' });
-const stats = await landman.stats();
-```
-
-### Model Host — Custom AI Inference
-
-Run inference against custom LoRA-adapted models. 10 adapters across tax, legal, medical, cyber, and more.
-
-```typescript
-import { EchoModelHost } from '@echo-omega-prime/sdk/model-host';
-
-const models = new EchoModelHost({ apiKey: 'your-key' });
-
-const response = await models.chat({
-  model: 'titlehound',
-  messages: [{ role: 'user', content: 'Analyze this chain of title gap' }],
-});
-const available = await models.list();
-await models.switchAdapter('taxlaw');
-const stats = await models.stats();
-```
-
-**Adapters:** `titlehound`, `doctrine-generator`, `landman`, `taxlaw`, `legal`, `realestate`, `cyber`, `engineering`, `medical`, `software`
-
-### Harvester — Data Collection
-
-Manage data harvesting sources across web, government, and social platforms.
-
-```typescript
-import { EchoHarvester } from '@echo-omega-prime/sdk/harvester';
-
-const harvester = new EchoHarvester({ apiKey: 'your-key' });
-
-const sources = await harvester.sources();
-await harvester.addSource({
-  name: 'TX Court Records', type: 'government',
-  url: 'https://records.texas.gov', schedule: '0 */12 * * *',
-});
-const items = await harvester.items({ source: 'TX Court Records', limit: 50 });
-const discovery = await harvester.discover('oilfield regulations');
-const stats = await harvester.stats();
-```
-
-### Scanner — County Document Scanning
-
-Automated courthouse document scanning and OCR pipeline.
-
-```typescript
-import { EchoScanner } from '@echo-omega-prime/sdk/scanner';
-
-const scanner = new EchoScanner({ apiKey: 'your-key' });
-
-const job = await scanner.createJob({
-  county: 'Midland', state: 'TX',
-  document_types: ['deed', 'lease', 'assignment'],
-});
-const status = await scanner.jobStatus(job.id);
-const docs = await scanner.documents({ county: 'Midland', limit: 100 });
-const counties = await scanner.countyStatus();
-const stats = await scanner.stats();
-```
-
-### Workflows — Automation Pipelines
-
-Create multi-step workflows with scheduling, branching, and error handling.
-
-```typescript
-import { EchoWorkflows } from '@echo-omega-prime/sdk/workflows';
-
-const workflows = new EchoWorkflows({ apiKey: 'your-key' });
-
-const workflow = await workflows.create({
-  name: 'daily-intel',
-  steps: [
-    { name: 'scrape-news', action: 'scraper.run', config: { source: 'reuters' } },
-    { name: 'analyze', action: 'engine.query', config: { domain: 'news' } },
-    { name: 'notify', action: 'notification.send', config: { channel: 'slack' } },
-  ],
-  schedule: '0 8 * * *',
-});
-const run = await workflows.run(workflow.id);
-const history = await workflows.runs(workflow.id);
-const crons = await workflows.crons();
-const stats = await workflows.stats();
-```
-
-### Notifications — Multi-Channel Alerts
-
-Send notifications across email, SMS, Slack, Telegram, Discord, and webhooks.
-
-```typescript
-import { EchoNotifications } from '@echo-omega-prime/sdk/notifications';
-
-const notify = new EchoNotifications({ apiKey: 'your-key' });
-
-await notify.send({
-  channel: 'slack', priority: 'high',
-  title: 'Security Alert', body: 'Unusual login attempt detected',
-});
-const rules = await notify.rules();
-await notify.createRule({
-  name: 'critical-errors',
-  condition: { event: 'error', severity: 'critical' },
-  channels: ['slack', 'sms'],
-});
-const stats = await notify.stats();
-```
-
-### Fleet — Worker & Service Management
-
-Monitor and manage Cloudflare Workers, deployments, and service health.
-
-```typescript
-import { EchoFleet } from '@echo-omega-prime/sdk/fleet';
-
-const fleet = new EchoFleet({ apiKey: 'your-key' });
-
-const health = await fleet.health();
-const workers = await fleet.workerStatus('echo-x-bot');
-const services = await fleet.services();
-await fleet.register({ name: 'my-worker', url: 'https://my-worker.workers.dev', type: 'bot' });
-const deployments = await fleet.deployments({ limit: 10 });
-const stats = await fleet.stats();
-```
-
-### Memory Prime — 9-Pillar Permanent Archive
-
-Permanent memory storage across 9 pillars: decisions, errors, patterns, context, code, conversations, knowledge, tasks, metrics.
-
-```typescript
-import { EchoMemoryPrime } from '@echo-omega-prime/sdk/memory-prime';
-
-const memory = new EchoMemoryPrime({ apiKey: 'your-key' });
-
-await memory.store('decisions', 'Chose Hono over Express for all Workers', {
-  importance: 9, tags: ['architecture', 'framework'],
-});
-const results = await memory.search('framework decision', { pillar: 'decisions' });
-const entries = await memory.recall('patterns', { limit: 20 });
-const entry = await memory.get('memory-id');
-await memory.delete('old-memory-id');
-const stats = await memory.stats();
-```
-
-**Pillars:** `decisions`, `errors`, `patterns`, `context`, `code`, `conversations`, `knowledge`, `tasks`, `metrics`
-
-### Autonomous — 24/7 Daemon Oversight
-
-Autonomous health monitoring, auto-tasks, pattern detection, fleet oversight.
-
-```typescript
-import { EchoAutonomous } from '@echo-omega-prime/sdk/autonomous';
-
-const daemon = new EchoAutonomous({ apiKey: 'your-key' });
-
-const status = await daemon.status();
-const health = await daemon.healthReport();
-const tasks = await daemon.tasks({ status: 'running' });
-await daemon.createTask('Run security sweep', { priority: 9, type: 'security' });
-const patterns = await daemon.patterns({ severity: 'critical' });
-const sweep = await daemon.sweep();
-const stats = await daemon.stats();
-```
-
----
+## Table of Contents
+
+- [Configuration](#configuration)
+- [Modules](#modules)
+- [Core Examples](#core-examples)
+- [Error Handling](#error-handling)
+- [Rate Limits](#rate-limits)
+- [Advanced Configuration](#advanced-configuration)
+- [Documentation](#documentation)
 
 ## Configuration
 
@@ -628,117 +57,557 @@ const echo = new EchoPrime({
 
   // Optional
   gatewayUrl: 'https://echo-sdk-gateway.bmcii1976.workers.dev', // default
-  timeout: 30_000,           // Request timeout in ms (default: 30s)
-  retries: 2,                // Retry attempts (default: 2)
-  cache: {                   // Response cache
-    maxSize: 200,            // Max cached entries (default: 200)
-    ttl: 300_000,            // Cache TTL in ms (default: 5min)
+  timeout: 30000,       // request timeout in ms (default: 30000)
+  retries: 2,           // retry count on failure (default: 2)
+
+  // Circuit breaker (protects against cascading failures)
+  circuitBreaker: {
+    failureThreshold: 5,     // failures before opening (default: 5)
+    resetTimeoutMs: 30000,   // time before half-open (default: 30000)
   },
-  circuitBreaker: {          // Circuit breaker
-    threshold: 5,            // Failures before opening (default: 5)
-    resetTimeout: 60_000,    // Time before half-open (default: 60s)
+
+  // Response caching (set to false to disable)
+  cache: {
+    maxSize: 1000,      // max entries (default: 1000)
+    defaultTtlMs: 60000 // TTL for GET requests (default: 60000)
   },
-  logger: (entry) => console.log(entry), // Structured log handler
+
+  // Structured logging
+  logger: (entry) => console.log(JSON.stringify(entry)),
 });
 ```
 
-## Resilience
+## Modules
 
-Built-in resilience with zero configuration:
+The SDK provides 36 modules, all accessible through the unified `EchoPrime` client:
 
-- **Automatic retries** with exponential backoff and ±20% jitter
-- **Circuit breaker** — opens after 5 failures, half-opens after 60s
-- **Response cache** — LRU cache with TTL for GET requests
-- **Timeout protection** — configurable per-request timeouts with abort signal support
-- **Error hierarchy** — typed errors for precise catch handling
+| # | Module | Property | Description |
+|---|--------|----------|-------------|
+| 1 | **Engines** | `echo.engines` | Query 2,600+ intelligence engines across 210+ domains |
+| 2 | **Knowledge** | `echo.knowledge` | Search and ingest 5,300+ documents across 140+ categories |
+| 3 | **Brain** | `echo.brain` | Infinite cross-session memory via semantic search |
+| 4 | **Doctrine** | `echo.doctrine` | Generate domain-specific doctrine blocks via 24 FREE LLM providers |
+| 5 | **Voice** | `echo.voice` | TTS synthesis, STT transcription, voice cloning, emotion tags |
+| 6 | **Chat** | `echo.chat` | Conversational AI with 14 personalities and session management |
+| 7 | **Vault** | `echo.vault` | Credential management, health scoring, rotation |
+| 8 | **Tools** | `echo.tools` | Search and execute 37,000+ MCP tools via MEGA Gateway |
+| 9 | **Monitor** | `echo.monitor` | Request metrics, latency tracking, error rates |
+| 10 | **Agent** | `echo.agent` | Create and run autonomous AI agents |
+| 11 | **Scraper** | `echo.scraper` | Configure and run web scrapers with pagination and rate limits |
+| 12 | **Bot** | `echo.bot` | Create social media bots across 9 platforms |
+| 13 | **MEGA Gateway** | `echo.megaGateway` | Access 37,475+ MCP tools across 1,901 servers |
+| 14 | **GraphRAG** | `echo.graphRag` | Knowledge graph with 312K+ nodes and 3.3M+ edges |
+| 15 | **Swarm** | `echo.swarm` | Inter-agent communication, MoltBook feed, task coordination |
+| 16 | **Darkweb** | `echo.darkweb` | Threat monitoring, breach detection, brand protection |
+| 17 | **Crypto** | `echo.crypto` | Grid/momentum trading strategies, portfolio management |
+| 18 | **News** | `echo.news` | Multi-source news aggregation with sentiment analysis |
+| 19 | **SEC Edgar** | `echo.secEdgar` | SEC filing monitoring, company watchlists |
+| 20 | **Reddit** | `echo.reddit` | Subreddit monitoring, keyword alerts, sentiment tracking |
+| 21 | **Price Alerts** | `echo.priceAlerts` | Multi-asset price monitoring with configurable thresholds |
+| 22 | **Landman** | `echo.landman` | Title investigation, chain-of-title, deed records, runsheets |
+| 23 | **Model Host** | `echo.modelHost` | Custom LoRA model inference and adapter management |
+| 24 | **Harvester** | `echo.harvester` | Automated knowledge source discovery and ingestion |
+| 25 | **Scanner** | `echo.scanner` | County record scraping, document indexing, multi-county search |
+| 26 | **Workflows** | `echo.workflows` | Multi-step workflow orchestration with cron scheduling |
+| 27 | **Notifications** | `echo.notifications` | Multi-channel notifications (email, SMS, Telegram, Discord, Slack) |
+| 28 | **Fleet** | `echo.fleet` | Worker fleet monitoring, health checks, deployment orchestration |
+| 29 | **Memory Prime** | `echo.memoryPrime` | Permanent 9-pillar memory archive with semantic search |
+| 30 | **Autonomous** | `echo.autonomous` | 24/7 daemon health monitoring, auto-tasks, pattern detection |
+| 31 | **SDK Catalog** | `echo.sdkCatalog` | Discover all 221 SDK methods across 30 modules |
+| 32 | **Forge** | `echo.forge` | Build engines, doctrines, apps, workers via Hephaestion/Daedalus/Forge-X |
+| 33 | **LLM** | `echo.llm` | Unified LLM completions across 29+ providers with streaming |
+| 34 | **Webhooks** | `echo.webhooks` | Register webhook endpoints, subscribe to events, stream in real-time |
+| 35 | **AGI** | `echo.agi` | Self-improving engine feedback loop, retraining, optimization suggestions |
+| 36 | **Compose** | `echo.compose` | Create compound engines with merge, chain, or vote strategies |
+
+## Core Examples
+
+### Engines -- Query Intelligence Engines
 
 ```typescript
-import { AuthError, RateLimitError, CircuitOpenError, TimeoutError, NetworkError } from '@echo-omega-prime/sdk/errors';
+// Natural language query
+const result = await echo.engines.query('What is MACRS depreciation?', 'tax');
+console.log(result.response);
+console.log(`Confidence: ${result.confidence}`);
+console.log(`Doctrines matched: ${result.doctrines_matched}`);
 
-try {
-  await echo.engines.query('test', 'tax');
-} catch (e) {
-  if (e instanceof AuthError) console.log('Invalid API key');
-  if (e instanceof RateLimitError) console.log(`Retry after ${e.retryAfter}ms`);
-  if (e instanceof CircuitOpenError) console.log('Circuit open, backing off');
-  if (e instanceof TimeoutError) console.log('Request timed out');
-  if (e instanceof NetworkError) console.log('Network error');
+// Batch query multiple questions
+const batch = await echo.engines.queryBatch([
+  { query: 'What is fracking?', domain: 'oilfield' },
+  { query: 'IRC Section 1031 exchange', domain: 'tax' },
+]);
+
+// List engines by domain
+const engines = await echo.engines.list('tax');
+
+// Search engines by keyword
+const matches = await echo.engines.search('depreciation', 10);
+
+// Get engine metadata
+const meta = await echo.engines.metadata('PETRO01');
+
+// Get engine capabilities
+const caps = await echo.engines.capabilities('PETRO01');
+```
+
+### Knowledge -- Search and Ingest Documents
+
+```typescript
+// Search the Knowledge Forge
+const docs = await echo.knowledge.search('mineral rights Texas', 5);
+for (const doc of docs) {
+  console.log(`${doc.title} (${doc.category}) - relevance: ${doc.relevance_score}`);
 }
 
-// Circuit breaker state
-echo.getCircuitState(); // { state: 'CLOSED' | 'OPEN' | 'HALF_OPEN', ... }
-echo.resetCircuit();    // Force reset
-echo.clearCache();      // Flush response cache
+// List knowledge categories
+const categories = await echo.knowledge.categories();
+
+// Ingest a new document
+const { id } = await echo.knowledge.ingest(
+  'Permian Basin Overview',
+  'The Permian Basin is a sedimentary basin...',
+  'oilfield'
+);
 ```
 
-## Security Utilities
+### Brain -- Shared Memory
 
 ```typescript
-import { redact, validateApiKey, maskKey, timingSafeEqual, sanitizeInput } from '@echo-omega-prime/sdk';
+// Store a memory
+await echo.brain.ingest('The meeting with the client went well', 8, ['client', 'meeting']);
 
-redact('my-secret');          // 'my-***ret'
-validateApiKey('echo-...');   // true/false (8-256 chars)
-maskKey('sk_live_abc123');    // 'sk_l****123'
-sanitizeInput('<script>');    // Strips dangerous content
+// Semantic search
+const memories = await echo.brain.search('client meetings');
+
+// Key-value store and recall
+await echo.brain.store('last_deploy', { version: '3.2.0', timestamp: Date.now() });
+const deploy = await echo.brain.recall('last_deploy');
+
+// Get brain statistics
+const stats = await echo.brain.stats();
 ```
 
-## Unified Search
+### Doctrine -- Generate Domain Knowledge
+
+```typescript
+// Generate doctrine blocks for a domain/topic
+const result = await echo.doctrine.generate('tax', 'depreciation');
+console.log(`Provider: ${result.provider_used}`);
+for (const block of result.doctrines) {
+  console.log(`[${block.authority_level}] ${block.topic}: ${block.content.slice(0, 100)}...`);
+}
+
+// Search existing doctrines
+const doctrines = await echo.doctrine.search('mineral rights', 'oilfield');
+
+// List available FREE LLM providers
+const providers = await echo.doctrine.providers();
+```
+
+### Voice -- Text-to-Speech, Speech-to-Text, Emotion
+
+```typescript
+// Synthesize speech
+const audioBuffer = await echo.voice.synthesize('Hello from Echo Prime', {
+  voice: 'echo',
+  emotion: 'excited',
+  format: 'mp3',
+  speed: 1.0,
+});
+
+// Transcribe audio
+const transcript = await echo.voice.transcribe(audioBase64, { language: 'en' });
+console.log(`Text: ${transcript.text} (confidence: ${transcript.confidence})`);
+
+// Analyze emotion in text
+const emotion = await echo.voice.analyzeEmotion('I am so happy about this result!');
+console.log(`Dominant: ${emotion.dominant_emotion} (${emotion.confidence})`);
+
+// List available voices
+const voices = await echo.voice.listVoices();
+
+// Clone a voice from audio samples
+const cloned = await echo.voice.cloneVoice('custom-voice', [sampleBase64], 'My custom voice');
+
+// Orchestrated TTS with quota-aware provider blending
+const audio = await echo.voice.orchestrate('Hello world', 'echo', { priority: 'quality' });
+```
+
+### Chat -- Conversational AI
+
+```typescript
+// Simple message with a personality
+const response = await echo.chat.send('Explain quantum computing', {
+  personality: 'sage',
+  domain: 'science',
+  enrichWithEngines: true,
+  enrichWithKnowledge: true,
+});
+console.log(response.message);
+
+// Session-based conversation (auto-manages history)
+const session = echo.chat.createSession('echo_prime', 'tax');
+const r1 = await echo.chat.sendInSession(session.id, 'What is a 1031 exchange?');
+const r2 = await echo.chat.sendInSession(session.id, 'What are the deadlines?');
+// r2 has full context of the previous exchange
+
+// List available personalities
+const personalities = await echo.chat.listPersonalities();
+```
+
+### Forge -- Build Engines, Apps, Workers
+
+```typescript
+// Build a new intelligence engine
+const engine = await echo.forge.engine({
+  domain: 'tax',
+  name: 'IRS-Analyzer',
+  doctrines: ['depreciation', 'capital-gains'],
+});
+
+// Build a doctrine
+const doctrine = await echo.forge.doctrine({
+  domain: 'legal',
+  topic: 'contract-analysis',
+  authority_level: 8,
+});
+
+// Build an app
+const app = await echo.forge.app('web', { name: 'my-dashboard' });
+
+// Build a Cloudflare Worker
+const worker = await echo.forge.worker('my-api', { routes: ['/api/*'] });
+
+// Run a full-stack pipeline
+const pipeline = await echo.forge.fullStack(
+  ['doctrine', 'engine', 'knowledge'],
+  { domain: 'legal', topic: 'contract-analysis' }
+);
+for (const stage of pipeline.results) {
+  console.log(`${stage.stage}: ${stage.ok ? 'passed' : 'FAILED'} (${stage.latency_ms}ms)`);
+}
+
+// Hephaestion Forge -- advanced engine construction
+const heph = await echo.forge.hephaestion({ domain: 'security', tier: 'sovereign' });
+
+// Daedalus Forge -- rapid prototype builds
+const proto = await echo.forge.daedalus({ domain: 'finance', experimental: true });
+
+// Forge-X -- cross-platform orchestration
+const cross = await echo.forge.forgeX({ targets: ['worker', 'engine', 'app'] });
+
+// Check forge health
+const forgeStatus = await echo.forge.status();
+console.log(`${forgeStatus.summary.healthy}/${forgeStatus.summary.total} forges healthy`);
+```
+
+### LLM -- Unified AI Completions
+
+```typescript
+// Simple Claude completion
+const resp = await echo.llm.claude('Explain quantum computing in 3 sentences');
+console.log(resp.content);
+console.log(`Tokens: ${resp.usage.total_tokens}, Latency: ${resp.latency_ms}ms`);
+
+// Any model completion
+const gpt = await echo.llm.complete({
+  prompt: 'What is machine learning?',
+  model: 'gpt-4o',
+  max_tokens: 500,
+  temperature: 0.7,
+});
+
+// Streaming
+for await (const chunk of echo.llm.stream({ prompt: 'Write a poem about AI' })) {
+  process.stdout.write(chunk);
+}
+
+// List available models
+const models = await echo.llm.models();
+for (const m of models) {
+  console.log(`${m.id} (${m.provider}) - ${m.capabilities.join(', ')}`);
+}
+
+// Check provider health
+const llmStatus = await echo.llm.status();
+```
+
+### AGI -- Self-Improving Engines
+
+```typescript
+// Submit quality feedback
+const fb = await echo.agi.feedback({
+  engine_id: 'tax-depreciation-v3',
+  query: 'What is MACRS?',
+  quality_score: 0.95,
+  feedback_text: 'Accurate and well-cited',
+});
+if (fb.auto_retrain_triggered) {
+  console.log('Auto-retrain triggered');
+}
+
+// Manual retrain
+const job = await echo.agi.retrain('legal-contracts-v2', 'Low quality on indemnification clauses');
+
+// Check learning rate
+const rate = await echo.agi.learningRate();
+console.log(`Daily improvement: ${rate.daily_improvement}%`);
+console.log(`Trend: ${rate.weekly_trend}`);
+
+// Get optimization suggestions
+const suggestions = await echo.agi.suggestions();
+for (const s of suggestions) {
+  console.log(`${s.engine_id}: ${s.recommended_action} (score: ${s.current_score})`);
+}
+```
+
+### Compose -- Compound Engines
+
+```typescript
+// Create a compound engine (chain strategy)
+const compound = await echo.compose.create(
+  ['tax-depreciation-v3', 'legal-contracts-v2'],
+  'tax-legal-combo',
+  { strategy: 'chain', description: 'Tax analysis followed by legal review' }
+);
+
+// Create a voting ensemble
+const ensemble = await echo.compose.create(
+  ['tax-v1', 'tax-v2', 'tax-v3'],
+  'tax-ensemble',
+  { strategy: 'vote', description: 'Best-of-3 tax engine ensemble' }
+);
+
+// Query a compound engine
+const result = await echo.compose.query(compound.id, 'Analyze 1031 exchange requirements');
+
+// List all compound engines
+const compounds = await echo.compose.list();
+```
+
+### Webhooks -- Real-Time Event Subscriptions
+
+```typescript
+// Register a webhook
+const hook = await echo.webhooks.register(
+  'https://myapp.com/webhooks',
+  ['engine.created', 'build.complete'],
+  'my-signing-secret'
+);
+
+// Test delivery
+const test = await echo.webhooks.test(hook.id);
+console.log(`Delivered: ${test.delivered}, Status: ${test.status}`);
+
+// List all webhooks
+const hooks = await echo.webhooks.list();
+
+// Stream real-time events
+for await (const event of echo.webhooks.events(['engine.*', 'build.*'])) {
+  console.log(`[${event.timestamp}] ${event.event}:`, event.data);
+}
+
+// Delete a webhook
+await echo.webhooks.delete(hook.id);
+```
+
+## Error Handling
+
+The SDK provides a structured error hierarchy. All errors extend `EchoError` and carry contextual metadata:
+
+```typescript
+import {
+  EchoError,
+  AuthError,
+  RateLimitError,
+  TimeoutError,
+  NetworkError,
+  ValidationError,
+  NotFoundError,
+  CircuitOpenError,
+  ServerError,
+} from '@echo-omega-prime/sdk';
+
+try {
+  const result = await echo.engines.query('test query');
+} catch (err) {
+  if (err instanceof AuthError) {
+    // 401/403 -- invalid or expired API key
+    console.error('Authentication failed:', err.message);
+  } else if (err instanceof RateLimitError) {
+    // 429 -- retry after delay
+    console.error(`Rate limited. Retry after ${err.retryAfterMs}ms`);
+  } else if (err instanceof TimeoutError) {
+    // 408 -- request timed out (retryable)
+    console.error('Request timed out');
+  } else if (err instanceof NetworkError) {
+    // 0 -- DNS/connection failure (retryable)
+    console.error('Network error:', err.message);
+  } else if (err instanceof ValidationError) {
+    // 400 -- bad input
+    console.error(`Validation error on field '${err.field}': ${err.message}`);
+  } else if (err instanceof NotFoundError) {
+    // 404 -- resource not found
+    console.error(err.message);
+  } else if (err instanceof CircuitOpenError) {
+    // 503 -- circuit breaker open, service temporarily unavailable
+    console.error(`Circuit open. Resets at ${new Date(err.resetAtMs).toISOString()}`);
+  } else if (err instanceof ServerError) {
+    // 5xx -- server-side error (retryable for 500-504)
+    console.error(`Server error ${err.status}: ${err.message}`);
+  } else if (err instanceof EchoError) {
+    // Catch-all for other SDK errors
+    console.error(`Echo error [${err.code}]: ${err.message}`);
+    console.error('Retryable:', err.retryable);
+    console.error('Context:', err.context);
+  }
+}
+```
+
+### Error Properties
+
+Every `EchoError` includes:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `message` | `string` | Human-readable error message |
+| `code` | `string` | Machine-readable error code (e.g., `AUTH_ERROR`, `RATE_LIMITED`) |
+| `status` | `number` | HTTP status code (0 for network errors) |
+| `retryable` | `boolean` | Whether the request can be retried |
+| `context` | `Record<string, unknown>` | Additional structured context |
+| `timestamp` | `string` | ISO timestamp of when the error occurred |
+
+### Retry Behavior
+
+The SDK automatically retries on:
+- HTTP 429 (Rate Limited)
+- HTTP 500, 502, 503, 504 (Server Errors)
+- Network failures (DNS, connection refused)
+
+Retry uses exponential backoff with +/-20% jitter. Default: 2 retries with a 500ms base delay.
+
+Client errors (400, 401, 403, 404) are never retried.
+
+### Circuit Breaker
+
+The built-in circuit breaker protects against cascading failures:
+- **CLOSED**: Normal operation. Requests flow through.
+- **OPEN**: After 5 consecutive failures, all requests are rejected immediately with `CircuitOpenError`.
+- **HALF-OPEN**: After the reset timeout (default: 30s), one request is allowed through. Success closes the circuit; failure re-opens it.
+
+```typescript
+// Check circuit breaker state
+const state = echo.getCircuitState();
+console.log(state);
+
+// Reset circuit breaker manually
+echo.resetCircuit();
+```
+
+## Rate Limits
+
+| Tier | Daily Requests | Price |
+|------|---------------|-------|
+| **Free** | 100/day | $0/mo |
+| **Starter** | 1,000/day | $29/mo |
+| **Pro** | 10,000/day | $99/mo |
+| **Enterprise** | Unlimited | Custom |
+
+Rate limit headers are returned with every response:
+- `X-RateLimit-Limit`: Your daily limit
+- `X-RateLimit-Remaining`: Requests remaining today
+- `X-RateLimit-Reset`: Unix timestamp when the limit resets
+
+When the limit is exceeded, the SDK throws a `RateLimitError` with a `retryAfterMs` property indicating how long to wait.
+
+## Advanced Configuration
+
+### Custom Gateway URL
+
+```typescript
+const echo = new EchoPrime({
+  apiKey: 'your-key',
+  gatewayUrl: 'https://your-custom-gateway.example.com',
+});
+```
+
+### Disable Caching
+
+```typescript
+const echo = new EchoPrime({
+  apiKey: 'your-key',
+  cache: false,
+});
+```
+
+### Custom Logger
+
+```typescript
+const echo = new EchoPrime({
+  apiKey: 'your-key',
+  logger: (entry) => {
+    // entry: { level, event, data, ts }
+    if (entry.level === 'error') {
+      myErrorTracker.capture(entry);
+    }
+  },
+});
+```
+
+### Abort Requests
+
+```typescript
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 5000);
+
+const result = await echo.engines.query('test', undefined);
+// Pass signal via the underlying client
+```
+
+### Unified Search
 
 Search across engines, knowledge, and brain simultaneously:
 
 ```typescript
-const results = await echo.search('MACRS depreciation', ['engines', 'knowledge'], 10);
+const results = await echo.search('mineral rights in Texas', ['engines', 'knowledge', 'brain']);
+for (const r of results) {
+  console.log(`Source: ${r.source}, Results: ${r.count}`);
+}
 ```
 
-## Compatibility
+### Tree Shaking
 
-| Runtime | Version |
-|---------|---------|
-| Node.js | 18+ |
-| Deno | 1.40+ |
-| Bun | 1.0+ |
-| Cloudflare Workers | Yes |
-| Browsers | Modern (with fetch) |
+Import only the modules you need:
 
-## Module Summary
+```typescript
+import { EchoEngines } from '@echo-omega-prime/sdk';
 
-| Module | Import Path | Description |
-|--------|-------------|-------------|
-| Engines | `@echo-omega-prime/sdk/engines` | 5,500+ AI reasoning engines, 880+ domains |
-| Knowledge | `@echo-omega-prime/sdk/knowledge` | 26,000+ documents, 576+ categories |
-| Brain | `@echo-omega-prime/sdk/brain` | Infinite cross-session semantic memory |
-| Doctrine | `@echo-omega-prime/sdk/doctrine` | Domain expertise generation, 24 LLM providers |
-| Voice | `@echo-omega-prime/sdk/voice` | TTS, STT, emotion, voice cloning |
-| Chat | `@echo-omega-prime/sdk/chat` | 14 AI personalities, session management |
-| Vault | `@echo-omega-prime/sdk/vault` | Credential storage, breach detection |
-| Tools | `@echo-omega-prime/sdk/tools` | 37,000+ MCP tools |
-| Monitoring | `@echo-omega-prime/sdk/monitoring` | Request telemetry (local, no API) |
-| Agent | `@echo-omega-prime/sdk/agent` | Autonomous AI agents |
-| Scraper | `@echo-omega-prime/sdk/scraper` | Web data extraction |
-| Bot | `@echo-omega-prime/sdk/bot` | Social media bots, 9 platforms |
-| MEGA Gateway | `@echo-omega-prime/sdk/mega-gateway` | 37,400+ tools, 1,873 servers |
-| Graph RAG | `@echo-omega-prime/sdk/graph-rag` | 312K nodes, 3.3M edges knowledge graph |
-| Swarm | `@echo-omega-prime/sdk/swarm` | Multi-agent coordination, MoltBook |
-| Dark Web | `@echo-omega-prime/sdk/darkweb` | Threat monitoring, breach detection |
-| Crypto | `@echo-omega-prime/sdk/crypto` | Trading strategies, portfolio management |
-| News | `@echo-omega-prime/sdk/news` | Real-time news intel, sentiment |
-| SEC EDGAR | `@echo-omega-prime/sdk/sec-edgar` | Financial filings monitoring |
-| Reddit | `@echo-omega-prime/sdk/reddit` | Subreddit monitoring, social intel |
-| Price Alerts | `@echo-omega-prime/sdk/price-alerts` | Asset price monitoring |
-| Landman | `@echo-omega-prime/sdk/landman` | Title & deed intelligence, 80 TX counties |
-| Model Host | `@echo-omega-prime/sdk/model-host` | Custom AI inference, 10 LoRA adapters |
-| Harvester | `@echo-omega-prime/sdk/harvester` | Data collection, 80+ sources |
-| Scanner | `@echo-omega-prime/sdk/scanner` | County document scanning & OCR |
-| Workflows | `@echo-omega-prime/sdk/workflows` | Automation pipelines, cron scheduling |
-| Notifications | `@echo-omega-prime/sdk/notifications` | Multi-channel alerts |
-| Fleet | `@echo-omega-prime/sdk/fleet` | Worker & service management |
-| Memory Prime | `@echo-omega-prime/sdk/memory-prime` | 9-pillar permanent memory archive |
-| Autonomous | `@echo-omega-prime/sdk/autonomous` | 24/7 daemon, health monitoring |
+const engines = new EchoEngines({
+  apiKey: 'your-key',
+  gatewayUrl: 'https://echo-sdk-gateway.bmcii1976.workers.dev',
+});
 
-## Zero Dependencies
+const result = await engines.query('What is fracking?');
+```
 
-This SDK has **zero runtime dependencies**. It uses native `fetch`, native `crypto.subtle`, and ships its own retry logic, circuit breaker, and cache. The only dev dependencies are `tsup` and `typescript`.
+### Cache Management
+
+```typescript
+// Clear all cached responses
+echo.clearCache();
+
+// Per-request cache control
+// (access via underlying module client)
+```
+
+## Documentation
+
+- [Quickstart Guide](docs/QUICKSTART.md) -- Get running in 5 minutes
+- [Full API Reference](docs/API_REFERENCE.md) -- Complete method signatures for all 36 modules
+- [Code Examples](docs/EXAMPLES.md) -- Copy-paste examples for every common task
+- [Echo Prime Technologies](https://echo-ept.com/sdk) -- Official documentation website
+- [GitHub](https://github.com/ECHO-OMEGA-PRIME/echo-sdk) -- Source code and issues
 
 ## License
 
-MIT — [Echo Prime Technologies](https://echo-ept.com)
+MIT License. Copyright (c) 2026 Echo Prime Technologies.

@@ -1,7 +1,7 @@
 {
   "name": "@echo-omega-prime/sdk",
-  "version": "3.2.0",
-  "description": "Echo Prime Technologies SDK — 30 modules: 5,500+ intelligence engines, AI chat, voice synthesis, knowledge search, brain memory, vault, bots, scrapers, agents, 37,400+ tools, graph RAG, swarm, dark web intel, crypto trading, landman pipeline, workflows, fleet management, and more. Zero dependencies.",
+  "version": "3.4.0",
+  "description": "Echo Prime Technologies SDK — 39 modules: 5,400+ intelligence engines, LLM routing, AGI self-learning, engine composition, forge marketplace, webhooks, AI chat, voice synthesis, knowledge search, brain memory, vault, bots, scrapers, agents, 37K+ tools, graph RAG, swarm, dark web intel, crypto trading, landman pipeline, workflows, fleet management, offline cache, request batching, telemetry, and more. Zero dependencies.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
@@ -161,6 +161,36 @@
       "import": "./dist/autonomous.mjs",
       "require": "./dist/autonomous.js"
     },
+    "./sdk-catalog": {
+      "types": "./dist/sdk-catalog.d.ts",
+      "import": "./dist/sdk-catalog.mjs",
+      "require": "./dist/sdk-catalog.js"
+    },
+    "./forge": {
+      "types": "./dist/forge.d.ts",
+      "import": "./dist/forge.mjs",
+      "require": "./dist/forge.js"
+    },
+    "./llm": {
+      "types": "./dist/llm.d.ts",
+      "import": "./dist/llm.mjs",
+      "require": "./dist/llm.js"
+    },
+    "./webhooks": {
+      "types": "./dist/webhooks.d.ts",
+      "import": "./dist/webhooks.mjs",
+      "require": "./dist/webhooks.js"
+    },
+    "./agi": {
+      "types": "./dist/agi.d.ts",
+      "import": "./dist/agi.mjs",
+      "require": "./dist/agi.js"
+    },
+    "./compose": {
+      "types": "./dist/compose.d.ts",
+      "import": "./dist/compose.mjs",
+      "require": "./dist/compose.js"
+    },
     "./errors": {
       "types": "./dist/errors.d.ts",
       "import": "./dist/errors.mjs",
@@ -170,19 +200,79 @@
       "types": "./dist/client.d.ts",
       "import": "./dist/client.mjs",
       "require": "./dist/client.js"
+    },
+    "./offline-cache": {
+      "types": "./dist/offline-cache.d.ts",
+      "import": "./dist/offline-cache.mjs",
+      "require": "./dist/offline-cache.js"
+    },
+    "./batch": {
+      "types": "./dist/batch.d.ts",
+      "import": "./dist/batch.mjs",
+      "require": "./dist/batch.js"
+    },
+    "./telemetry": {
+      "types": "./dist/telemetry.d.ts",
+      "import": "./dist/telemetry.mjs",
+      "require": "./dist/telemetry.js"
+    },
+    "./data": {
+      "types": "./dist/data.d.ts",
+      "import": "./dist/data.mjs",
+      "require": "./dist/data.js"
+    },
+    "./circuit-breaker": {
+      "types": "./dist/circuit-breaker.d.ts",
+      "import": "./dist/circuit-breaker.mjs",
+      "require": "./dist/circuit-breaker.js"
+    },
+    "./cache": {
+      "types": "./dist/cache.d.ts",
+      "import": "./dist/cache.mjs",
+      "require": "./dist/cache.js"
+    },
+    "./security": {
+      "types": "./dist/security.d.ts",
+      "import": "./dist/security.mjs",
+      "require": "./dist/security.js"
     }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts src/voice.ts src/chat.ts src/vault.ts src/tools.ts src/monitoring.ts src/agent.ts src/scraper.ts src/bot.ts src/mega-gateway.ts src/graph-rag.ts src/swarm.ts src/darkweb.ts src/crypto.ts src/news.ts src/sec-edgar.ts src/reddit.ts src/price-alerts.ts src/landman.ts src/model-host.ts src/harvester.ts src/scanner.ts src/workflows.ts src/notifications.ts src/fleet.ts src/memory-prime.ts src/autonomous.ts src/errors.ts src/client.ts --format cjs,esm --dts --clean",
+    "build": "tsup src/index.ts src/engines.ts src/knowledge.ts src/brain.ts src/doctrine.ts src/voice.ts src/chat.ts src/vault.ts src/tools.ts src/monitoring.ts src/agent.ts src/scraper.ts src/bot.ts src/mega-gateway.ts src/graph-rag.ts src/swarm.ts src/darkweb.ts src/crypto.ts src/news.ts src/sec-edgar.ts src/reddit.ts src/price-alerts.ts src/landman.ts src/model-host.ts src/harvester.ts src/scanner.ts src/workflows.ts src/notifications.ts src/fleet.ts src/memory-prime.ts src/autonomous.ts src/sdk-catalog.ts src/forge.ts src/llm.ts src/webhooks.ts src/agi.ts src/compose.ts src/errors.ts src/client.ts src/offline-cache.ts src/batch.ts src/telemetry.ts src/data.ts src/circuit-breaker.ts src/cache.ts src/security.ts --format cjs,esm --dts --clean",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "echo-prime", "ai", "intelligence-engines", "knowledge-base", "sdk", "api",
-    "voice", "tts", "stt", "chat", "vault", "bots", "scrapers", "agents",
-    "tools", "monitoring", "autonomous", "zero-dependencies", "graph-rag",
-    "swarm", "darkweb", "crypto", "landman", "workflows", "fleet"
+    "echo-prime",
+    "ai",
+    "intelligence-engines",
+    "knowledge-base",
+    "sdk",
+    "api",
+    "voice",
+    "tts",
+    "stt",
+    "chat",
+    "vault",
+    "bots",
+    "scrapers",
+    "agents",
+    "tools",
+    "monitoring",
+    "autonomous",
+    "zero-dependencies",
+    "graph-rag",
+    "swarm",
+    "darkweb",
+    "crypto",
+    "landman",
+    "workflows",
+    "fleet"
   ],
   "author": "Echo Prime Technologies <dev@echo-ept.com>",
   "license": "MIT",
@@ -201,6 +291,7 @@
   "sideEffects": false,
   "devDependencies": {
     "tsup": "^8.0.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.0"
   }
 }
