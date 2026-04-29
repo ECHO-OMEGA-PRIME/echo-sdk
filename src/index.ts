@@ -209,7 +209,7 @@ export type { AlertCondition, AssetType, PriceAlert, PriceSnapshot, AlertHistory
 export type { InvestigationStatus, DeedType, TitleInvestigation, DeedRecord, ChainOfTitle, Runsheet, LandmanStats } from './landman.js';
 export type { ModelAdapter, InferenceRequest, InferenceResponse, ModelStats } from './model-host.js';
 export type { SourceType, HarvestStatus, HarvestSource, HarvestItem, DiscoveryReport, HarvesterStats } from './harvester.js';
-export type { ScrapeStatus, ScanJob, ScannedDocument, CountyStatus, ScannerStats } from './scanner.js';
+export type { ScrapeStatus, ScanJob, ScannedDocument, CountyStatus, ScannerStats, BuildRecommendation } from './scanner.js';
 export type { WorkflowStatus, StepStatus, Workflow, WorkflowStep, WorkflowRun, CronJob, WorkflowStats } from './workflows.js';
 export type { NotificationChannel, NotificationPriority, NotificationStatus, Notification, NotificationRule, NotificationStats } from './notifications.js';
 export type { WorkerStatus, FleetWorker, FleetDeployment, ServiceRegistration, FleetStats } from './fleet.js';
